@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>4,380 Hallmark Cards In One Chart</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+<<<<<<< HEAD
     <link rel = "stylesheet" type = "text/css" href = "myStyle.css" />
 </head>
 <body>
@@ -14,6 +15,73 @@
     
         <!-- container for force layout visualisation  -->
         <section id="vis"></section> 
+=======
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+
+    <h1>4,380 Hallmark Cards In One Chart</h1>
+
+    <script>
+        // Dyanmically changing subtitle
+        var subTitle = d3.select("body").append("h2").text("What Do Cards For Girls Look Like?")
+        var counter = 0
+        var groupOptions = ["Boys", "Mothers", "Fathers", "Sisters", "Brothers", "Daughters", "Sons", "Women", "Men", "Girls"]
+
+        function render() {
+          if (counter == groupOptions.length){
+              counter = 0;
+          }
+
+        subTitle.text("What Do Cards For "+groupOptions[counter]+" Look Like?");
+        counter = counter + 1
+        setTimeout(render, 2500);
+          }
+        render();
+        </script>
+
+    <h3>By Rosie Babbra and Oliver Gladfelter</h3>
+
+    <article>
+        <p>Have you ever tried to buy a birthday card for someone special in your life and struggled to find one matching their favorite color? If so, I’m willing to bet their favorite color isn’t pink or blue. In the greeting cards section of most stores, the cards underneath labels such as “Birthday for Daughter” or “Anniversary for Wife” blend together to form a wall of pink. Take two steps to the right, and you’ll find a wall of blue, underneath a label saying something like “Father’s Day” or “Son’s Graduation.”</p>
+        <p>Need some convincing? We pulled pictures of thousands of cards found on Hallmark’s website, which conveniently labels each card by their intended audience – such as “Boy,” “Girl,” “Any Woman,” or “Any Man.” Take a look at what the cards designed for each group look like, and how they differ from one another.</p>
+    </article>
+
+    <!-- select a group here - eventually want to replace with checkboxes 
+    to allow for multiple groups and combinations to be shown at once-->
+    <select id="group-selection">
+        <option value="Girl">Girl</option>
+        <option value="Boy">Boy</option>
+        <option value="Daughter">Daughter</option>
+        <option value="Son">Son</option>
+        <option value="Granddaughter">Granddaughter</option>
+        <option value="Grandson">Grandson</option>
+        <option value="Niece">Niece</option>
+        <option value="Nephew">Nephew</option>
+        <option value="Sister">Sister</option>
+        <option value="Brother">Brother</option>
+        <option value="Wife">Wife</option>
+        <option value="Husband">Husband</option>
+        <option value="Mother">Mother</option>
+        <option value="Father">Father</option>
+        <option value="Aunt">Aunt</option>
+        <option value="Uncle">Uncle</option>
+        <option value="Grandmother">Grandmother</option>
+        <option value="Grandfather">Grandfather</option>
+        <option value="Any+Woman">Any Woman</option>
+        <option value="Any+Man">Any Man</option>
+  </select>
+  
+    <div id="main-wrapper" style="width:95%">
+        <div id="chart" style='height:95vh;'></div>
+    </div><!-- @end #main-wrapper -->
+
+    <!-- container for force layout visualisation  -->
+    <section id="vis"></section> 
+
+    <p>Notice any patterns?</p>
+
+>>>>>>> e819819e90202dc1717315e555996067bc9c9c10
 <script src='../js/script.js'></script>
 </body>
 </html>
