@@ -3,19 +3,8 @@
     <head>
     <meta charset="utf-8">
     <title>4,380 Hallmark Cards In One Chart</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-<<<<<<< HEAD
-    <link rel = "stylesheet" type = "text/css" href = "myStyle.css" />
-</head>
-<body>
-
-        <div id="main-wrapper" style="width:95%">
-            <div id="chart" style='height:95vh;'></div>
-        </div><!-- @end #main-wrapper -->
-    
-        <!-- container for force layout visualisation  -->
-        <section id="vis"></section> 
-=======
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script src="https://d3js.org/d3.v4.0.0-alpha.40.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
@@ -40,7 +29,7 @@
         render();
         </script>
 
-    <h3>By Rosie Babbra and Oliver Gladfelter</h3>
+    <h3>By Oliver Gladfelter and Rosie Babbra</h3>
 
     <article>
         <p>Have you ever tried to buy a birthday card for someone special in your life and struggled to find one matching their favorite color? If so, I’m willing to bet their favorite color isn’t pink or blue. In the greeting cards section of most stores, the cards underneath labels such as “Birthday for Daughter” or “Anniversary for Wife” blend together to form a wall of pink. Take two steps to the right, and you’ll find a wall of blue, underneath a label saying something like “Father’s Day” or “Son’s Graduation.”</p>
@@ -49,9 +38,30 @@
 
     <!-- select a group here - eventually want to replace with checkboxes 
     to allow for multiple groups and combinations to be shown at once-->
-    <select id="group-selection">
+    <input type="checkbox" id="girlCheckbox" value='Girl' checked><label for="girlCheckbox">Girl</label>
+    <input type="checkbox" id="boyCheckbox" value='Boy'><label for="boyCheckbox">Boy</label>
+    <input type="checkbox" id="daughterCheckbox"><label for="daughterCheckbox">Daugher</label>
+    <input type="checkbox" id="sonCheckbox"><label for="sonCheckbox">Son</label>
+    <input type="checkbox" id="granddaughterCheckbox"><label for="granddaughterCheckbox">Granddaughter</label>
+    <input type="checkbox" id="grandsonCheckbox"><label for="grandsonCheckbox">Grandson</label>
+    <input type="checkbox" id="nieceCheckbox"><label for="nieceCheckbox">Niece</label>
+    <input type="checkbox" id="nephewCheckbox"><label for="nephewCheckbox">Nephew</label>
+    <input type="checkbox" id="sisterCheckbox"><label for="sisterCheckbox">Sister</label>
+    <input type="checkbox" id="brotherCheckbox"><label for="brotherCheckbox">Brother</label><br />
+    <input type="checkbox" id="wifeCheckbox"><label for="wifeCheckbox">Wife</label>
+    <input type="checkbox" id="husbandCheckbox"><label for="husbandCheckbox">Husband</label>
+    <input type="checkbox" id="motherCheckbox"><label for="motherCheckbox">Mother</label>
+    <input type="checkbox" id="fatherCheckbox"><label for="fatherCheckbox">Father</label>
+    <input type="checkbox" id="auntCheckbox"><label for="auntCheckbox">Aunt</label>
+    <input type="checkbox" id="uncleCheckbox"><label for="uncleCheckbox">Uncle</label>
+    <input type="checkbox" id="grandmotherCheckbox"><label for="grandmotherCheckbox">Grandmother</label>
+    <input type="checkbox" id="grandfatherCheckbox"><label for="grandfatherCheckbox">Grandfather</label>
+    <input type="checkbox" id="anyWomanCheckbox"><label for="anyWomanCheckbox">Any Woman</label>
+    <input type="checkbox" id="anyManCheckbox"><label for="anyManCheckbox">Any Man</label>
+    <div id="content"></div>
+    <!-- <select id="group-selection">
         <option value="Girl">Girl</option>
-        <option value="Boy">Boy</option>
+        <option selected value="Boy">Boy</option>
         <option value="Daughter">Daughter</option>
         <option value="Son">Son</option>
         <option value="Granddaughter">Granddaughter</option>
@@ -70,7 +80,7 @@
         <option value="Grandfather">Grandfather</option>
         <option value="Any+Woman">Any Woman</option>
         <option value="Any+Man">Any Man</option>
-  </select>
+  </select> -->
   
     <div id="main-wrapper" style="width:95%">
         <div id="chart" style='height:95vh;'></div>
@@ -81,7 +91,6 @@
 
     <p>Notice any patterns?</p>
 
->>>>>>> e819819e90202dc1717315e555996067bc9c9c10
 <script src='../js/script.js'></script>
 </body>
 </html>
