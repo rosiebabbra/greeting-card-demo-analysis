@@ -18,3 +18,4 @@ a:visited { color: #EE3124; }
 a:hover { color: #A4CD39; text-decoration: underline;}
 a:active { color: #EE3124; }
 select {margin: 10px 10px 30px 10px}
+svg {margin: 5px 5px 5px 5px}
