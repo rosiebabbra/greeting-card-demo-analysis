@@ -16,12 +16,10 @@
         var subTitle = d3.select("body").append("h2").text("What Do Cards For Girls Look Like?")
         var counter = 0
         var groupOptions = ["Boys", "Mothers", "Fathers", "Sisters", "Brothers", "Daughters", "Sons", "Women", "Men", "Girls"]
-
         function render() {
           if (counter == groupOptions.length){
               counter = 0;
           }
-
         subTitle.text("What Do Cards For "+groupOptions[counter]+" Look Like?");
         counter = counter + 1
         setTimeout(render, 2500);
@@ -40,24 +38,24 @@
     to allow for multiple groups and combinations to be shown at once-->
     <input type="checkbox" id="girlCheckbox" value='Girl' checked><label for="girlCheckbox">Girl</label>
     <input type="checkbox" id="boyCheckbox" value='Boy'><label for="boyCheckbox">Boy</label>
-    <input type="checkbox" id="daughterCheckbox"><label for="daughterCheckbox">Daugher</label>
-    <input type="checkbox" id="sonCheckbox"><label for="sonCheckbox">Son</label>
-    <input type="checkbox" id="granddaughterCheckbox"><label for="granddaughterCheckbox">Granddaughter</label>
-    <input type="checkbox" id="grandsonCheckbox"><label for="grandsonCheckbox">Grandson</label>
-    <input type="checkbox" id="nieceCheckbox"><label for="nieceCheckbox">Niece</label>
-    <input type="checkbox" id="nephewCheckbox"><label for="nephewCheckbox">Nephew</label>
-    <input type="checkbox" id="sisterCheckbox"><label for="sisterCheckbox">Sister</label>
-    <input type="checkbox" id="brotherCheckbox"><label for="brotherCheckbox">Brother</label><br />
-    <input type="checkbox" id="wifeCheckbox"><label for="wifeCheckbox">Wife</label>
-    <input type="checkbox" id="husbandCheckbox"><label for="husbandCheckbox">Husband</label>
-    <input type="checkbox" id="motherCheckbox"><label for="motherCheckbox">Mother</label>
-    <input type="checkbox" id="fatherCheckbox"><label for="fatherCheckbox">Father</label>
-    <input type="checkbox" id="auntCheckbox"><label for="auntCheckbox">Aunt</label>
-    <input type="checkbox" id="uncleCheckbox"><label for="uncleCheckbox">Uncle</label>
-    <input type="checkbox" id="grandmotherCheckbox"><label for="grandmotherCheckbox">Grandmother</label>
-    <input type="checkbox" id="grandfatherCheckbox"><label for="grandfatherCheckbox">Grandfather</label>
-    <input type="checkbox" id="anyWomanCheckbox"><label for="anyWomanCheckbox">Any Woman</label>
-    <input type="checkbox" id="anyManCheckbox"><label for="anyManCheckbox">Any Man</label>
+    <input type="checkbox" id="daughterCheckbox" value='Daughter'><label for="daughterCheckbox">Daugher</label>
+    <input type="checkbox" id="sonCheckbox" value='Son'><label for="sonCheckbox">Son</label>
+    <input type="checkbox" id="granddaughterCheckbox" value='Granddaughter'><label for="granddaughterCheckbox">Granddaughter</label>
+    <input type="checkbox" id="grandsonCheckbox" value='Grandson'><label for="grandsonCheckbox">Grandson</label>
+    <input type="checkbox" id="nieceCheckbox" value='Niece'><label for="nieceCheckbox">Niece</label>
+    <input type="checkbox" id="nephewCheckbox" value='Nephew'><label for="nephewCheckbox">Nephew</label>
+    <input type="checkbox" id="sisterCheckbox" value='Sister'><label for="sisterCheckbox">Sister</label>
+    <input type="checkbox" id="brotherCheckbox" value='Brother'><label for="brotherCheckbox">Brother</label><br />
+    <input type="checkbox" id="wifeCheckbox" value='Wife'><label for="wifeCheckbox">Wife</label>
+    <input type="checkbox" id="husbandCheckbox" value='Husband'><label for="husbandCheckbox">Husband</label>
+    <input type="checkbox" id="motherCheckbox" value='Mother'><label for="motherCheckbox">Mother</label>
+    <input type="checkbox" id="fatherCheckbox" value='Father'><label for="fatherCheckbox">Father</label>
+    <input type="checkbox" id="auntCheckbox" value='Aunt'><label for="auntCheckbox">Aunt</label>
+    <input type="checkbox" id="uncleCheckbox" value='Uncle'><label for="uncleCheckbox">Uncle</label>
+    <input type="checkbox" id="grandmotherCheckbox" value='Grandmother'><label for="grandmotherCheckbox">Grandmother</label>
+    <input type="checkbox" id="grandfatherCheckbox" value='Grandfather'><label for="grandfatherCheckbox">Grandfather</label>
+    <input type="checkbox" id="anyWomanCheckbox" value='Any+Woman'><label for="anyWomanCheckbox">Any Woman</label>
+    <input type="checkbox" id="anyManCheckbox" value='Any+Man'><label for="anyManCheckbox">Any Man</label>
     <div id="content"></div>
     <!-- <select id="group-selection">
         <option value="Girl">Girl</option>
