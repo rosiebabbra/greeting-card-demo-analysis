@@ -13,12 +13,12 @@ function readDataAndDrawCards(filter){
       }
     }
 
-  drawCards();
+  drawCards(filter);
   })
 
 }
 
-function drawCards(){
+function drawCards(idName){
 
   var numberOfCards = cardImages.length;
 
@@ -31,9 +31,9 @@ function drawCards(){
   var svg = d3.select("#chart").append("svg")
           .attr("width", width)
           .attr("height", height)
-          .attr("id","cardHolder");
-
-  var defs = svg.append('svg:defs');
+          .attr("id",idName);
+  
+  var defs = svg.append('svg:defs')
 
   var config = {
       "card_size" : width / Math.ceil(Math.sqrt(numberOfCards)) // sqrt (rounded up) of numberOfCards is # of rows and columns for the grid
@@ -56,7 +56,7 @@ function drawCards(){
 
     // defs for images
     defs.append("svg:pattern")
-    .attr("id", i) // this id is what rect.style("fill") uses to pull in the right image
+    .attr("id", idName+i) // this id is what rect.style("fill") uses to pull in the right image
     .attr("width", config.card_size)
     .attr("height", config.card_size)
     .attr("patternUnits", "userSpaceOnUse")
@@ -75,7 +75,7 @@ function drawCards(){
           .attr("width", config.card_size)
           .attr("height",config.card_size)
           .attr("id",i)
-          .style("fill", "url(#" + i.toString() +")"); // calls a defs by id to determine image
+          .style("fill", "url(#" + idName+i.toString() +")"); // calls a defs by id to determine image
       
     // increment x to move to next column
     x = x + 1;
@@ -116,143 +116,60 @@ function drawCards(){
 //   .style("opacity", opacity);
 //   });
 
+// when a checkbox value changes, add group svg if being checked or delete group svg if being unchecked
+d3.selectAll("input").on("change", function() {
+  if (this.checked == false){
+    document.getElementById(this.value).remove()
+  }
+  else if (this.checked == true){
+    readDataAndDrawCards(this.value)
+  }
 
-d3.select("#girlCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Girl')
+  numChecked = 0;
+
+  // count how many checkboxes are checked
+  for (i=0;i<d3.selectAll("input")._groups[0].length;i++){
+    if (d3.selectAll("input")._groups[0][i].checked) {
+      numChecked = numChecked + 1;
+    }
+  }
+
+  console.log(numChecked);
+
+  // original width and height of svgs
+  var width = document.getElementById('chart').clientHeight;
+  var height = document.getElementById('chart').clientHeight;
+
+  // for every existing svg, resize depending of number of checked boxes - THIS ISN'T WORKING :(
+  for (i=0;i<d3.selectAll("input")._groups[0].length;i++){
+    if (d3.selectAll("input")._groups[0][i].checked) {
+      document.getElementById(d3.selectAll("input")._groups[0][i].value).width = width / numChecked;
+      document.getElementById(d3.selectAll("input")._groups[0][i].value).height = height / numChecked;
+    }
+  }
+
 })
 
-d3.select("#boyCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Boy')
-})
+// examples old functions
+//d3.select("#girlCheckbox").on("change", function() {
+  //if (this.checked == false){
+    //document.getElementById('Girl').remove()
+ // }
+  //else if (this.checked == true){
+    //readDataAndDrawCards('Girl')
+ // }
+//})
 
-d3.select("#daughterCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Daughter')
-})
+//d3.select("#boyCheckbox").on("change", function() {
+  //if (this.checked == false){
+   // document.getElementById('Boy').remove()
+  //}  
+  //else if (this.checked == true){
+    //readDataAndDrawCards('Boy')
+  //}
+//})
 
-d3.select("#sonCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Son')
-})
 
-d3.select("#granddaughterCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Granddaughter')
-})
 
-d3.select("#grandsonCheckboxCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Grandson')
-})
-
-d3.select("#nieceCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Niece')
-})
-
-d3.select("#nephewCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Nephew')
-})
-
-d3.select("#sisterCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Sister')
-})
-
-d3.select("#brotherCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Brother')
-})
-
-d3.select("#wifeCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Wife')
-})
-
-d3.select("#husbandCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Husband')
-})
-
-d3.select("#motherCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Mother')
-})
-
-d3.select("#fatherCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Father')
-})
-
-d3.select("#auntCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Aunt')
-})
-
-d3.select("#uncleCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Uncle')
-})
-
-d3.select("#grandmotherCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Grandmother')
-})
-
-d3.select("#grandfatherCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Grandfather')
-})
-
-d3.select("#anyWomanCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Any+Woman')
-})
-
-d3.select("#anyManCheckbox").on("change", function() {
-  d3.select("svg").remove()
-  d3.select("defs").remove()
-  var selectedOption = d3.select(this).property("value")
-  readDataAndDrawCards('Any+Man')
-})
+// preload the page with Girl cards
+readDataAndDrawCards('Girl')
