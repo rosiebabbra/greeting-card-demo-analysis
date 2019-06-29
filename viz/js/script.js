@@ -1,15 +1,17 @@
+// array to hold image links
+cardImages = {}
+
 // currently, the data is re-read everytime the chart is updated
 // need to figure out how to read the data once and only once, to make more efficient
 function readDataAndDrawCards(filter){
 
-  // array to hold image links
-  cardImages = []
+  cardImages[filter] = []
 
   // import data from csv, push s3_link to array if the category is = filter
   d3.csv("../data/hallmark_card_rgb_codes_sorted.csv", function(data){
     for (i=0;i<data.length;i++){
       if (data[i].category == filter){
-      cardImages.push(data[i].s3_link);
+      cardImages[filter].push(data[i].s3_link);
       }
     }
 
@@ -20,7 +22,7 @@ function readDataAndDrawCards(filter){
 
 function drawCards(idName){
 
-  var numberOfCards = cardImages.length;
+  var numberOfCards = cardImages[idName].length;
 
   var body = d3.select("body");
 
@@ -61,11 +63,14 @@ function drawCards(idName){
     .attr("height", config.card_size)
     .attr("patternUnits", "userSpaceOnUse")
     .append("svg:image")
-    .attr("xlink:href", cardImages[i])
+    .attr("xlink:href", cardImages[idName][i])
     .attr("width", config.card_size)
     .attr("height", config.card_size)
     .attr("x", 0)
     .attr("y", 0);
+
+    var div = d3.select("body").append("div")
+      .attr("class", "tooltip");
 
     // add a rect, which will be filled with a card image
     svg.append("rect")
@@ -75,7 +80,26 @@ function drawCards(idName){
           .attr("width", config.card_size)
           .attr("height",config.card_size)
           .attr("id",i)
-          .style("fill", "url(#" + idName+i.toString() +")"); // calls a defs by id to determine image
+          .style("fill", "url(#" + idName+i.toString() +")") // calls a defs by id to determine image
+          .on("mouseover", function(){ 
+              div.html("<img class='onHoverFirst' style='height: " + config.card_size * 1 + "px; width: " + config.card_size * 1 + "px;' src=" + cardImages[idName][d3.select(this).attr('id')] + ">")
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY) + "px")
+              div.transition()
+                    .duration(500)		
+                    .style("opacity", 1)
+              div.html("<img class='onHoverSecond' style='height: " + config.card_size * 4 + "px; width: " + config.card_size * 4 + "px;' src=" + cardImages[idName][d3.select(this).attr('id')] + ">")
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY) + "px")
+              img.onHoverFirst.transition()
+                .style("height","100px")
+                .style("width","200px")
+            })
+        .on("mouseout", function() {		
+          div.transition()		
+              .duration(500)		
+              .style("opacity", 0);	
+          });
       
     // increment x to move to next column
     x = x + 1;
