@@ -26,7 +26,7 @@ function drawCards(idName){
   var body = d3.select("body");
 
   // equal width and height so svg is a square
-  var width = document.getElementById('chart').clientHeight * .75;
+  var width = document.getElementById('chart').clientHeight * .75; // testing smaller svg size; height currently not adjusted as cards become truncated
   var height = document.getElementById('chart').clientHeight;
 
   var svg = d3.select("#chart").append("svg")
