@@ -1,47 +1,50 @@
-// array to hold image links
-cardImages = {}
-
-// currently, the data is re-read everytime the chart is updated
-// need to figure out how to read the data once and only once, to make more efficient
-function readDataAndDrawCards(filter){
-
-  cardImages[filter] = []
+function readData(){ // reads csv, save all to a dictionary for later use
 
   // import data from csv, push s3_link to array if the category is = filter
-  d3.csv("../data/hallmark_card_rgb_codes_sorted.csv", function(data){
+  d3.csv("../data/hallmark_card_sorted_by_hue.csv", function(data){
     for (i=0;i<data.length;i++){
-      if (data[i].category == filter){
-      cardImages[filter].push(data[i].s3_link);
+      if (typeof cardImages[data[i].category] == "undefined"){ // first time seeing this category
+        cardImages[data[i].category] = [] // intialize the dictionary key and pair with an empty list
+      }
+      else { // category is already in dictionary
+        cardImages[data[i].category].push(data[i].s3_link); // add card link
       }
     }
 
-  drawCards(filter);
+  // preload the page with Girl cards
+  drawCards("Girl");
   })
 
 }
 
-function drawCards(idName){
+function drawCards(idName){ // activated every time a box is checked; draws new svg + cards for given 'idName' group
 
   var numberOfCards = cardImages[idName].length;
 
   var body = d3.select("body");
 
   // equal width and height so svg is a square
-  var width = document.getElementById('chart').clientHeight;
+  var width = document.getElementById('chart').clientHeight * .75; // testing smaller svg size; height currently not adjusted as cards become truncated
   var height = document.getElementById('chart').clientHeight;
 
   var svg = d3.select("#chart").append("svg")
           .attr("width", width)
           .attr("height", height)
           .attr("id",idName);
+
+  var label = svg.append('text')
+          .text(idName.replace("+"," "))
+          .attr('x', width/2)
+          .attr('y', 20)
+          .attr('font-size', '18px')
+          .style("text-anchor", "middle")
+          .style("font-weight", "bold");
   
   var defs = svg.append('svg:defs')
 
   var config = {
       "card_size" : width / Math.ceil(Math.sqrt(numberOfCards)) // sqrt (rounded up) of numberOfCards is # of rows and columns for the grid
   }
-
-  var body = d3.select("body");
 
   var y = 0; // y placement on svg for rects
   var x = 0; // x placement on svg for rects
@@ -76,69 +79,70 @@ function drawCards(idName){
     svg.append("rect")
           .attr("class", "card")
           .attr("x", x*config.card_size)
-          .attr("y", y*config.card_size)
+          .attr("y", y*config.card_size + config.card_size) // <--
           .attr("width", config.card_size)
           .attr("height",config.card_size)
           .attr("id",i)
           .style("fill", "url(#" + idName+i.toString() +")") // calls a defs by id to determine image
           .on("mouseover", function(){ 
-              div.html("<img class='onHoverFirst' style='height: " + config.card_size * 1 + "px; width: " + config.card_size * 1 + "px;' src=" + cardImages[idName][d3.select(this).attr('id')] + ">")
+
+              // var style = 'height: " + config.card_size + "px; width: " + config.card_size + "px;'
+              var style_min = "'height: " + config.card_size + "px; width: " + config.card_size + "px;'"
+              var style_max = "'height: " + height / 4 + "px; width: " + width / 4 + "px;'"
+              var src = cardImages[idName][d3.select(this).attr('id')]
+
+              div.html("<img class='onHoverFirst' style='height: ${style_min}' src=${src}>")
                     .style("left", (d3.event.pageX) + "px")		
                     .style("top", (d3.event.pageY) + "px")
               div.transition()
                     .duration(500)		
                     .style("opacity", 1)
-              div.html("<img class='onHoverSecond' style='height: " + config.card_size * 4 + "px; width: " + config.card_size * 4 + "px;' src=" + cardImages[idName][d3.select(this).attr('id')] + ">")
+              div.html("<img class='onHoverSecond' style="+style_max+" src="+src+">")
                     .style("left", (d3.event.pageX) + "px")		
                     .style("top", (d3.event.pageY) + "px")
-              img.onHoverFirst.transition()
-                .style("height","100px")
-                .style("width","200px")
             })
-        .on("mouseout", function() {		
-          div.transition()		
-              .duration(500)		
-              .style("opacity", 0);	
-          });
+            .on("mouseout", function() {		
+              div.transition()		
+                  .style("opacity", 0);	
+              });
+
       
     // increment x to move to next column
     x = x + 1;
     counter = counter + 1
   }
 
-} // closes drawCards() function
+} 
 
+function limitCheckboxSelection() {
 
-// currently, the data is re-read everytime the chart is updated
-// need to figure out how to read the data once and only once, to make more efficient
-// var filter = document.getElementById('group-selection').value;
+  var checkboxes = document.getElementsByTagName('input');
+  var numChecked = 0;
+  var count;
 
-// readDataAndDrawCards('Girl'); 
+  for(count=0; count<checkboxes.length; count++){
+    if(checkboxes[count].checked==true){
+      numChecked = numChecked + 1;
+    }
+  }
 
-// dropdown - every time a new group is selected, remove the current svg and defs and call readDataAndDrawCards()
-// d3.select("#group-selection").on("change", function() {
-//   d3.select("svg").remove()
-//   d3.select("defs").remove()
-//   var selectedOption = d3.select(this).property("value")
-//   readDataAndDrawCards(selectedOption)
-// })
-// every time a new group is selected, remove the current svg and defs and call readDataAndDrawCards()
+  if(numChecked<1){
+    document.getElementById('invalid').style.visibility = "visible"
+    document.getElementById('invalid').innerHTML = 'Please select at least one category.'
+    return false;
+  }
+  else if(numChecked>=3){
+    document.getElementById('invalid').style.visibility = "visible"
+    document.getElementById('invalid').innerHTML = 'Please select a maximum of two categories.'
+    return false;
+  }
+  else{
+    document.getElementById('invalid').style.visibility = "hidden"
+    //return false;
+  }
 
-// if(d3.select("#girlCheckbox").property("checked")){
-//   readDataAndDrawCards('Girl');
-// } else {
-//   d3.select("svg").remove();
-//   d3.select("defs").remove();
-// }
+}
 
-// d3.selectAll("#girlCheckbox").on("change", function() {
-//   var selected = this.value;
-//   opacity = this.checked ? 1 : 0;
-
-// svg.selectAll("svg")
-//   .filter(function(d) {return selected == d.category;})
-//   .style("opacity", opacity);
-//   });
 
 // when a checkbox value changes, add group svg if being checked or delete group svg if being unchecked
 d3.selectAll("input").on("change", function() {
@@ -146,54 +150,11 @@ d3.selectAll("input").on("change", function() {
     document.getElementById(this.value).remove()
   }
   else if (this.checked == true){
-    readDataAndDrawCards(this.value)
-  }
-
-  numChecked = 0;
-
-  // count how many checkboxes are checked
-  for (i=0;i<d3.selectAll("input")._groups[0].length;i++){
-    if (d3.selectAll("input")._groups[0][i].checked) {
-      numChecked = numChecked + 1;
-    }
-  }
-
-  console.log(numChecked);
-
-  // original width and height of svgs
-  var width = document.getElementById('chart').clientHeight;
-  var height = document.getElementById('chart').clientHeight;
-
-  // for every existing svg, resize depending of number of checked boxes - THIS ISN'T WORKING :(
-  for (i=0;i<d3.selectAll("input")._groups[0].length;i++){
-    if (d3.selectAll("input")._groups[0][i].checked) {
-      document.getElementById(d3.selectAll("input")._groups[0][i].value).width = width / numChecked;
-      document.getElementById(d3.selectAll("input")._groups[0][i].value).height = height / numChecked;
-    }
+    drawCards(this.value)
   }
 
 })
 
-// examples old functions
-//d3.select("#girlCheckbox").on("change", function() {
-  //if (this.checked == false){
-    //document.getElementById('Girl').remove()
- // }
-  //else if (this.checked == true){
-    //readDataAndDrawCards('Girl')
- // }
-//})
-
-//d3.select("#boyCheckbox").on("change", function() {
-  //if (this.checked == false){
-   // document.getElementById('Boy').remove()
-  //}  
-  //else if (this.checked == true){
-    //readDataAndDrawCards('Boy')
-  //}
-//})
-
-
-
-// preload the page with Girl cards
-readDataAndDrawCards('Girl')
+// create dictionary and fill with data using readData() function
+cardImages = {}
+readData() // this also preloads the page with the 'Girl' category
