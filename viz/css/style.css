@@ -1,5 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600);
-body {font-family: "Times New Roman", Consolas, monaco, monospace; line-height: 160%; font-size: 16px;  margin: 0;  text-align: center }
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 50px;
+    height: 33px;
+    pointer-events: none;
+  }
+
+body {font-family: "Open Sans", Consolas, monaco, monospace; line-height: 160%; font-size: 16px;  margin: 0;  text-align: center }
 path.link {
 fill: none;
 stroke-width: 2px;
@@ -7,15 +16,18 @@ stroke-width: 2px;
 .node:not(:hover) .nodetext {
 display: none;
 }
-h1 { font-size: 42px; margin: 40px 10px 30px 10px; font-weight: bold}
+h1 { font-size: 42px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
 h2 { font-size: 28px; margin: 10px 10px 30px 10px; font-weight: bold;}
 h3 { font-size: 22px; margin: 10px 10px 30px 10px; font-weight: normal;}
 header {padding: 20px; position: absolute; top: 0; left: 0;}
 p { font-size: 20px;}
 article { text-align: left; width: 50%; margin: 0 auto;}
-a:link { color: #EE3124; text-decoration: none;}
-a:visited { color: #EE3124; }
-a:hover { color: #A4CD39; text-decoration: underline;}
+a:link.oliverLink { color: #FF1493; text-decoration: none;}
+a:visited.oliverLink { color: #FF1493; }
+a:hover.oliverLink { color: #FFC0CB; text-decoration: underline;}
+a:link.rosieLink { color: #141DFF; text-decoration: none;}
+a:visited.rosieLink { color: #141DFF; }
+a:hover.rosieLink { color: #89cff0; text-decoration: underline;}
 a:active { color: #EE3124; }
 select {margin: 10px 10px 30px 10px}
 svg {margin: 5px 5px 5px 5px}
