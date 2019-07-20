@@ -17,33 +17,33 @@
     <article>
         <p>Have you ever tried to buy a birthday card for someone special in your life and struggled to find one matching their favorite color? If so, I’m willing to bet their favorite color isn’t pink or blue. In the greeting cards section of most stores, the cards underneath labels such as “Birthday for Daughter” or “Anniversary for Wife” blend together to form a wall of pink. Take two steps to the right, and you’ll find a wall of blue, underneath a label saying something like “Father’s Day” or “Son’s Graduation.”</p>
         <p>Need some convincing? We pulled pictures of thousands of cards found on Hallmark’s website, which conveniently labels each card by their intended audience – such as “Boy,” “Girl,” “Any Woman,” or “Any Man.” Take a look at what the cards designed for each group look like, and how they differ from one another.</p>
-    </article>   
-
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="girlCheckbox" value='Girl' checked><label for="girlCheckbox">Girl</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="boyCheckbox" value='Boy'><label for="boyCheckbox">Boy</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="daughterCheckbox" value='Daughter'><label for="daughterCheckbox">Daugher</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="sonCheckbox" value='Son'><label for="sonCheckbox">Son</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="granddaughterCheckbox" value='Granddaughter'><label for="granddaughterCheckbox">Granddaughter</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="grandsonCheckbox" value='Grandson'><label for="grandsonCheckbox">Grandson</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="nieceCheckbox" value='Niece'><label for="nieceCheckbox">Niece</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="nephewCheckbox" value='Nephew'><label for="nephewCheckbox">Nephew</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="sisterCheckbox" value='Sister'><label for="sisterCheckbox">Sister</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="brotherCheckbox" value='Brother'><label for="brotherCheckbox">Brother</label><br />
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="wifeCheckbox" value='Wife'><label for="wifeCheckbox">Wife</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="husbandCheckbox" value='Husband'><label for="husbandCheckbox">Husband</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="motherCheckbox" value='Mother'><label for="motherCheckbox">Mother</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="fatherCheckbox" value='Father'><label for="fatherCheckbox">Father</label>
+    </article> 
+<div class="checkbox-container">
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="girlCheckbox" value='Girl' checked />Girl</label>
+    <label> <input type="checkbox" onclick='return limitCheckboxSelection()' id="boyCheckbox" value='Boy' />Boy</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="daughterCheckbox" value='Daughter' />Daugher</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="sonCheckbox" value='Son' />Son</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="granddaughterCheckbox" value='Granddaughter' />Granddaughter</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="grandsonCheckbox" value='Grandson' />Grandson</label>
+    <!-- <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="nieceCheckbox" value='Niece' />Niece</label> -->
+    <!-- <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="nephewCheckbox" value='Nephew' />Nephew</label> -->
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="sisterCheckbox" value='Sister' />Sister</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="brotherCheckbox" value='Brother' />Brother</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="wifeCheckbox" value='Wife' />Wife</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="husbandCheckbox" value='Husband' />Husband</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="motherCheckbox" value='Mother' />Mother</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="fatherCheckbox" value='Father' />Father</label>
     <!--<input type="checkbox" onclick='return limitCheckboxSelection()' id="auntCheckbox" value='Aunt'><label for="auntCheckbox">Aunt</label>
     <input type="checkbox" onclick='return limitCheckboxSelection()' id="uncleCheckbox" value='Uncle'><label for="uncleCheckbox">Uncle</label>-->
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="grandmotherCheckbox" value='Grandmother'><label for="grandmotherCheckbox">Grandmother</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="grandfatherCheckbox" value='Grandfather'><label for="grandfatherCheckbox">Grandfather</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="anyWomanCheckbox" value='Any+Woman'><label for="anyWomanCheckbox">Any Woman</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="anyManCheckbox" value='Any+Man'><label for="anyManCheckbox">Any Man</label>
-
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="grandmotherCheckbox" value='Grandmother' />Grandmother</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="grandfatherCheckbox" value='Grandfather' />Grandfather</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="anyWomanCheckbox" value='Any+Woman' />Any Woman</label>
+    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="anyManCheckbox" value='Any+Man' />Any Man</label>
+</div> 
     <div id="content"></div>
-        <span id='invalid' style="visibility: hidden; color: #d00">Please select a maximum of two categories.</span>
+    <div id='invalid'>Please select a maximum of two categories.</div>
     <div id="main-wrapper" style="width:100vw;">
-        <div id="chart" style='height:100vh;'></div>
+        <div id="chart" style="height:100vh;"></div>
     </div><!-- @end #main-wrapper -->
 
     <!-- container for force layout visualisation  -->

@@ -24,22 +24,29 @@ function drawCards(idName){ // activated every time a box is checked; draws new 
   var body = d3.select("body");
 
   // equal width and height so svg is a square
+
   var width = document.getElementById('chart').clientHeight * .75; // testing smaller svg size; height currently not adjusted as cards become truncated
   var height = document.getElementById('chart').clientHeight;
-
+    
   var svg = d3.select("#chart").append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .attr("id",idName);
+        .attr("width", width)
+        .attr("height", height)
+        .attr("id", idName);
 
-  var label = svg.append('text')
-          .text(idName.replace("+"," "))
-          .attr('x', width/2)
-          .attr('y', 20)
-          .attr('font-size', '18px')
-          .style("text-anchor", "middle")
-          .style("font-weight", "bold");
-  
+  // d3.select('#'+ idName).append("text")
+  //       .attr("x", (width / 2))             
+  //       .attr("y", 0)
+  //       .attr("text-anchor", "middle")  
+  //       .style("font-size", "16px") 
+  //       .text(idName.replace("+"," "));
+
+  // svg.append("text")
+  //       .attr("x", (width / 2))             
+  //       .attr("y", 0)
+  //       .attr("text-anchor", "middle")  
+  //       .style("font-size", "16px") 
+  //       .text(idName.replace("+"," "));
+
   var defs = svg.append('svg:defs')
 
   var config = {
@@ -50,7 +57,7 @@ function drawCards(idName){ // activated every time a box is checked; draws new 
   var x = 0; // x placement on svg for rects
   var counter = 0;
 
-  for (i=0;i<numberOfCards;i++) {
+  for (i=1;i<numberOfCards;i++) {
 
     // once we've added enough cards to fill the row, increment y (to start the next row) and reset x
     if (counter > Math.ceil(Math.sqrt(numberOfCards)-1)){
@@ -79,19 +86,18 @@ function drawCards(idName){ // activated every time a box is checked; draws new 
     svg.append("rect")
           .attr("class", "card")
           .attr("x", x*config.card_size)
-          .attr("y", y*config.card_size + config.card_size) // <--
+          .attr("y", y*config.card_size) // <--
           .attr("width", config.card_size)
           .attr("height",config.card_size)
           .attr("id",i)
           .style("fill", "url(#" + idName+i.toString() +")") // calls a defs by id to determine image
           .on("mouseover", function(){ 
 
-              // var style = 'height: " + config.card_size + "px; width: " + config.card_size + "px;'
               var style_min = "'height: " + config.card_size + "px; width: " + config.card_size + "px;'"
               var style_max = "'height: " + height / 4 + "px; width: " + width / 4 + "px;'"
               var src = cardImages[idName][d3.select(this).attr('id')]
 
-              div.html("<img class='onHoverFirst' style='height: ${style_min}' src=${src}>")
+              div.html("<img class='onHoverFirst' style='height: "+style_min+"' src="+src+">")
                     .style("left", (d3.event.pageX) + "px")		
                     .style("top", (d3.event.pageY) + "px")
               div.transition()
@@ -127,14 +133,22 @@ function limitCheckboxSelection() {
   }
 
   if(numChecked<1){
+    
     document.getElementById('invalid').style.visibility = "visible"
     document.getElementById('invalid').innerHTML = 'Please select at least one category.'
     return false;
   }
   else if(numChecked>=3){
+
     document.getElementById('invalid').style.visibility = "visible"
     document.getElementById('invalid').innerHTML = 'Please select a maximum of two categories.'
-    return false;
+
+    setTimeout(function(){
+      document.getElementById('invalid').style.visibility = "hidden"
+  }, 5000);
+
+  return false;
+
   }
   else{
     document.getElementById('invalid').style.visibility = "hidden"

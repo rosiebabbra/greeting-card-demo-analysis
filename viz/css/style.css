@@ -8,7 +8,12 @@ div.tooltip {
     pointer-events: none;
   }
 
-body {font-family: "Open Sans", Consolas, monaco, monospace; line-height: 160%; font-size: 16px;  margin: 0;  text-align: center }
+body {font-family: "Open Sans", Consolas, monaco, monospace; 
+      line-height: 160%; 
+      font-size: 16px;  
+      margin: 0;  
+      text-align: center;
+      z-index:1;}
 path.link {
 fill: none;
 stroke-width: 2px;
@@ -29,5 +34,49 @@ a:link.rosieLink { color: #141DFF; text-decoration: none;}
 a:visited.rosieLink { color: #141DFF; }
 a:hover.rosieLink { color: #89cff0; text-decoration: underline;}
 a:active { color: #EE3124; }
+#invalid {
+  width:50%;
+  visibility: hidden; 
+  color: #d00;
+  padding: auto;
+  margin: auto;
+  text-align: middle;
+}
 select {margin: 10px 10px 30px 10px}
 svg {margin: 5px 5px 5px 5px}
+/* checkbox grid format */
+.checkbox-container {
+  white-space: nowrap;
+  width: 50%;
+  height:50px;
+  margin: 0 auto;
+  padding-left:5%;
+}
+
+label {
+  display: block;
+  float: left;
+  text-align: left;
+  width: 25%;
+  font-size: 14px;
+}
+
+/* Wrap checkboxes on page width decrease */
+
+@media screen and (max-width: 800px) {
+
+.checkbox-container {
+  padding-left:0;
+}
+
+label {
+  display: block;
+  float: left;
+  text-align: left;
+  width: 45%;
+  padding-right:5%;
+  font-size: 14px;
+}
+
+
+}

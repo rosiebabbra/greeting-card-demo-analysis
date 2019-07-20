@@ -1,0 +1,4 @@
+{
+    "python.venvPath": "/anaconda3/envs/dbconnect/lib/python3.5/site-packages/pyspark/jars",
+    "python.pythonPath": "/anaconda3/envs/dbconnect/bin/python"
+}
