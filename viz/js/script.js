@@ -27,18 +27,22 @@ function drawCards(idName){ // activated every time a box is checked; draws new 
 
   var width = document.getElementById('chart').clientHeight * .75; // testing smaller svg size; height currently not adjusted as cards become truncated
   var height = document.getElementById('chart').clientHeight;
+
+  var config = {
+    "card_size" : width / Math.ceil(Math.sqrt(numberOfCards)) // sqrt (rounded up) of numberOfCards is # of rows and columns for the grid
+}
     
   var svg = d3.select("#chart").append("svg")
         .attr("width", width)
         .attr("height", height)
         .attr("id", idName);
 
-  // d3.select('#'+ idName).append("text")
-  //       .attr("x", (width / 2))             
-  //       .attr("y", 0)
-  //       .attr("text-anchor", "middle")  
-  //       .style("font-size", "16px") 
-  //       .text(idName.replace("+"," "));
+  d3.select('#'+ idName).append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 20)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text(idName.replace("+"," "));
 
   // svg.append("text")
   //       .attr("x", (width / 2))             
@@ -48,10 +52,6 @@ function drawCards(idName){ // activated every time a box is checked; draws new 
   //       .text(idName.replace("+"," "));
 
   var defs = svg.append('svg:defs')
-
-  var config = {
-      "card_size" : width / Math.ceil(Math.sqrt(numberOfCards)) // sqrt (rounded up) of numberOfCards is # of rows and columns for the grid
-  }
 
   var y = 0; // y placement on svg for rects
   var x = 0; // x placement on svg for rects
@@ -86,7 +86,7 @@ function drawCards(idName){ // activated every time a box is checked; draws new 
     svg.append("rect")
           .attr("class", "card")
           .attr("x", x*config.card_size)
-          .attr("y", y*config.card_size) // <--
+          .attr("y", y*config.card_size + config.card_size) // <--
           .attr("width", config.card_size)
           .attr("height",config.card_size)
           .attr("id",i)
