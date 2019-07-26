@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
     <meta charset="utf-8">
-    <title>4,380 Hallmark Cards In One Chart</title>
+    <title>4,200 Hallmark Cards In One Chart</title>
     <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
     <script src="https://d3js.org/d3.v4.0.0-alpha.40.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -10,46 +10,70 @@
 </head>
 <body>
 
-    <h1>4,380 Hallmark Cards In One Chart</h1>
-
-    <h3>By <a href="https://www.ogladfelter.com/" target="_blank" class="oliverLink">Oliver Gladfelter</a> and <a href="http://bfy.tw/OPch" target="_blank" class="rosieLink">Rosie Babbra</a></h3>
+    <h1>4,200 Hallmark Cards In One Chart</h1>
+    <h2>How Greeting Cards Reinforce Gender Stereotypes</h2>
+    <h3>By <a href="https://twitter.com/OGladfelter" target="_blank" class="oliverLink">Oliver Gladfelter</a> and <a href="https://www.linkedin.com/in/rosiebabbra/" target="_blank" class="rosieLink">Rosie Babbra</a></h3>
 
     <article>
         <p>Have you ever tried to buy a birthday card for someone special in your life and struggled to find one matching their favorite color? If so, I’m willing to bet their favorite color isn’t pink or blue. In the greeting cards section of most stores, the cards underneath labels such as “Birthday for Daughter” or “Anniversary for Wife” blend together to form a wall of pink. Take two steps to the right, and you’ll find a wall of blue, underneath a label saying something like “Father’s Day” or “Son’s Graduation.”</p>
         <p>Need some convincing? We pulled pictures of thousands of cards found on Hallmark’s website, which conveniently labels each card by their intended audience – such as “Boy,” “Girl,” “Any Woman,” or “Any Man.” Take a look at what the cards designed for each group look like, and how they differ from one another.</p>
     </article> 
-<div class="checkbox-container">
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="girlCheckbox" value='Girl' checked />Girl</label>
-    <label> <input type="checkbox" onclick='return limitCheckboxSelection()' id="boyCheckbox" value='Boy' />Boy</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="daughterCheckbox" value='Daughter' />Daugher</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="sonCheckbox" value='Son' />Son</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="granddaughterCheckbox" value='Granddaughter' />Granddaughter</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="grandsonCheckbox" value='Grandson' />Grandson</label>
-    <!-- <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="nieceCheckbox" value='Niece' />Niece</label> -->
-    <!-- <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="nephewCheckbox" value='Nephew' />Nephew</label> -->
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="sisterCheckbox" value='Sister' />Sister</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="brotherCheckbox" value='Brother' />Brother</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="wifeCheckbox" value='Wife' />Wife</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="husbandCheckbox" value='Husband' />Husband</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="motherCheckbox" value='Mother' />Mother</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="fatherCheckbox" value='Father' />Father</label>
-    <!--<input type="checkbox" onclick='return limitCheckboxSelection()' id="auntCheckbox" value='Aunt'><label for="auntCheckbox">Aunt</label>
-    <input type="checkbox" onclick='return limitCheckboxSelection()' id="uncleCheckbox" value='Uncle'><label for="uncleCheckbox">Uncle</label>-->
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="grandmotherCheckbox" value='Grandmother' />Grandmother</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="grandfatherCheckbox" value='Grandfather' />Grandfather</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="anyWomanCheckbox" value='Any+Woman' />Any Woman</label>
-    <label><input type="checkbox" onclick='return limitCheckboxSelection()' id="anyManCheckbox" value='Any+Man' />Any Man</label>
-</div> 
-    <div id="content"></div>
-    <div id='invalid'>Please select a maximum of two categories.</div>
+    
+    <select id="selectorLeft">
+        <option value="Girl">Girl</option>
+        <option value="Boy">Boy</option>
+        <option value="Daughter">Daughter</option>
+        <option value="Son">Son</option>
+        <option value="Granddaughter">Granddaughter</option>
+        <option value="Grandson">Grandson</option>
+        <option value="Sister">Sister</option>
+        <option value="Brother">Brother</option>
+        <option value="Wife">Wife</option>
+        <option value="Husband">Husband</option>
+        <option value="Mother">Mother</option>
+        <option value="Father">Father</option>
+        <option value="Grandmother">Grandmother</option>
+        <option value="Grandfather">Grandfather</option>
+        <option value="Any+Woman">Any Woman</option>
+        <option value="Any+Man">Any Man</option>
+    </select>
+
+    <select id="selectorRight">
+        <option value="Girl">Girl</option>
+        <option value="Boy">Boy</option>
+        <option value="Daughter">Daughter</option>
+        <option value="Son">Son</option>
+        <option value="Granddaughter">Granddaughter</option>
+        <option value="Grandson">Grandson</option>
+        <option value="Sister">Sister</option>
+        <option value="Brother">Brother</option>
+        <option value="Wife">Wife</option>
+        <option value="Husband">Husband</option>
+        <option value="Mother">Mother</option>
+        <option value="Father">Father</option>
+        <option value="Grandmother">Grandmother</option>
+        <option value="Grandfather">Grandfather</option>
+        <option value="Any+Woman">Any Woman</option>
+        <option value="Any+Man">Any Man</option>
+    </select>
+
+
     <div id="main-wrapper" style="width:100vw;">
         <div id="chart" style="height:100vh;"></div>
     </div><!-- @end #main-wrapper -->
 
-    <!-- container for force layout visualisation  -->
-    <section id="vis"></section> 
+    <article>
+        <p>Many cards designed for girls, wives, mothers, etc are indeed pink. In fact, the dominant color of cards for female recipients are a red or violet hue (which would include shades of pink) 38% of the time. Only 17% are blue. Meanwhile, 15% of cards intended for male recipients are red or violet (or pink) and 30% are blue.</p>
+        <p>These differences are much more pronounced among cards aimed at younger audiences. Cards in the “Girl” category are red or violet 42% of the time; cards in the “Boy” category are blue 42% of the time. To be fair, 23% of cards designed for girls are blue, making it the second biggest color option. On the flip side, only 12% of cards for boys are red or violet.</p>
+    </article>
 
-    <p>Notice any patterns?</p>
+    <div id="main-wrapper2" style="width:100vw;">
+        <div id="chart2" style="height:100vh;"></div>
+    </div><!-- @end #main-wrapper -->
+
+    <p>Why did we do this? Why is it important? Why does this matter? </p>
+
+    <p><strong>Notes & Methodology</strong></p>
 
 <script src='../js/script.js'></script>
 </body>
