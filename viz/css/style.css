@@ -82,3 +82,20 @@ label {
 
 }
 
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(17, 2.5vw);
+  grid-template-rows: repeat(17, 2.5vw);
+}
+
+.gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gridParent {
+  display: grid;
+  grid-template-columns: repeat(2, 50vw);
+  grid-template-rows: repeat(1, 2.5vw);
+}
