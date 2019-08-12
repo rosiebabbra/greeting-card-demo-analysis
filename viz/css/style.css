@@ -97,5 +97,20 @@ label {
 .gridParent {
   display: grid;
   grid-template-columns: repeat(2, 50vw);
-  grid-template-rows: repeat(1, 2.5vw);
 }
+
+#selectorLeft {
+  position:relative;
+  left:-20%;
+}
+
+#selectorRight {
+  position:relative;
+  right:-20%;
+}
+
+/* select {
+  margin:auto;
+  padding:auto;
+  display:inline-block;
+} */

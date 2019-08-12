@@ -3,8 +3,8 @@ function readData(){ // reads csv, save all to a dictionary for later use
   // import data from csv, push s3_link to array if the category is = filter
   d3.csv("../data/hallmark_card_with_rgb.csv", function(data){
     for (i=0;i<data.length;i++){
-      if (typeof cardImages[data[i].category] == "undefined"){ // first time seeing this category
-        cardImages[data[i].category] = [] // intialize the dictionary key and pair with an empty list
+      if (typeof cardImages[data[i].category] == "undefined"){
+        cardImages[data[i].category] = []
       }
       else { // category is already in dictionary
         cardImages[data[i].category].push(data[i].s3_link); // add card link
@@ -34,7 +34,7 @@ function readHueData(){ // reads csv, save all to a dictionary for later use
     }
   
   
-  //drawHueViz();
+  drawHueViz();
   })
 
 }
@@ -43,15 +43,36 @@ function drawCardsLeft(idName){ // activated every time selector is changed; dra
 
   var numberOfCards = cardImages[idName].length;
 
-  for (i=1;i<numberOfCards;i++) {
-    
-    var img = document.createElement('img');
-    img.src = cardImages[idName][i]
-    img.classList.add("gallery__img");
-    document.getElementById('galleryDiv').appendChild(img)
+  // The way the grid format is being created does not allow
+  // obtaining of the each "squares" within the div, which means
+  // there is no identifier which to select each square and add an image
+  // absent of the for loop 
+  var grid = document.getElementById('galleryDiv');
+  grid.setAttribute('style','grid-template-columns: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)')
+  grid.classList.add("gallery__img");
+  grid.setAttribute('style','grid-template-rows: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)');
 
-  }
+  d3.select(grid).style('margin', 'auto');
 
+  // //Start card population
+  // for (i=1;i<numberOfCards;i++) {
+  //   var img = document.createElement('img');
+  //   img.src = cardImages[idName][i]
+  //   img.classList.add("gallery__img")
+  //   grid.appendChild(img)
+  // }
+
+
+  // Using d3 to populate the cards instead
+  d3.select(grid).selectAll('img')
+      .data(cardImages[idName])
+      .enter()
+      .append('img')
+      .attr("src", function(d){ return d})
+      .attr('height', '25px')
+      .attr('weight', '25px')
+
+  
 } 
 
 function drawCardsRight(idName){ // activated every time selector is changed; draws new cards for given 'idName' group
@@ -59,14 +80,37 @@ function drawCardsRight(idName){ // activated every time selector is changed; dr
   var numberOfCards = cardImages[idName].length;
 
   var grid = document.getElementById('galleryDiv2');
-  grid.setAttribute('style','grid-template-columns: repeat(5, 2.5vw)');
-  grid.setAttribute('style','grid-template-rows: repeat(5, 2.5vw)');
+  grid.setAttribute('style','grid-template-columns: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)');
+  grid.setAttribute('style','grid-template-rows: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)');
+
+  d3.select(grid).style('margin', 'auto');
 
   for (i=1;i<numberOfCards;i++) {
     var img = document.createElement('img');
-    img.src = cardImages[idName][i]
+    img.src = cardImages[idName][i];
     img.classList.add("gallery__img");
-    grid.appendChild(img)
+    grid.appendChild(img);
+
+  //   d3.select('img').on("mouseover", function(){ 
+
+  //     var style_min = "'height: " + config.card_size + "px; width: " + config.card_size + "px;'"
+  //     var style_max = "'height: " + height / 4 + "px; width: " + width / 4 + "px;'"
+  //     var src = cardImages[idName][d3.select(this).attr('id')]
+
+  //     div.html("<img class='onHoverFirst' style='height: "+style_min+"' src="+src+">")
+  //           .style("left", (d3.event.pageX) + "px")		
+  //           .style("top", (d3.event.pageY) + "px")
+  //     div.transition()
+  //           .duration(500)		
+  //           .style("opacity", 1)
+  //     div.html("<img class='onHoverSecond' style="+style_max+" src="+src+">")
+  //           .style("left", (d3.event.pageX) + "px")		
+  //           .style("top", (d3.event.pageY) + "px")
+  //   })
+  // .on("mouseout", function() {		
+  //     div.transition()		
+  //         .style("opacity", 0);	
+  //     });
   }
 
 }
@@ -76,14 +120,13 @@ function drawHueViz(){
   var height = document.getElementById('chart2').clientHeight * .9;
 
   var huesvg = d3.select("#chart2").append("svg")
-  .attr("width", width)
-  .attr("height", height)
-
-  //groups = Object.keys(cardHues);
+    .attr("width", width)
+    .attr("height", height)
   
   groups = ["Any+Man", "Father", "Grandfather", "Brother", "Son",
               "Husband", "Grandson", "Any+Woman", "Boy", "Daughter", "Mother",
               "Wife", "Grandmother", "Sister", "Granddaughter", "Girl"]
+
 
   function drawOneGroupBar(group){
       for (i=0;i<cardHues[group].length;i++){
@@ -93,9 +136,14 @@ function drawHueViz(){
           .attr("y", height - (i * (height / cardHues[group].length))) 
           .attr("width", width / groups.length - 5)
           .attr("height", height / cardHues[group].length * 1.5)
-          .style("fill", "hsl(" + cardHues[group][i][0] + ",50% ," + cardHues[group][i][1] +"%)");
-          
+          .style("fill", "hsl(" + cardHues[group][i][0] + ",50% ," + cardHues[group][i][1] +"%)")
+
       }
+
+      // Appending text to the huesvg elements append text to each individual color.
+      // Setting static labels since the viz is not dynamic.
+
+
   }
 
   for (z=0;z<groups.length;z++){
@@ -103,15 +151,16 @@ function drawHueViz(){
 
       huesvg.append('text')
           .attr("x", z * (width / groups.length) + (width/groups.length/2))
-          .attr("y", height / 2)
+          .attr("y", height)
           .text(groups[z])
-          .style("font-size","8px")
-          .style("fill","white")
+          .style("font-size","12px")
+          .style("fill","black")
           .attr('text-alignment','center')
           .style("text-anchor", "middle")
-          //.attr("transform", "translate(" + z * (width / groups.length) + "," + height / 2 + ")")
-          //.attr("transform", "rotate(-90)")
+
   }
+
+  
 }
 
 // change right selector to 'Boy'

@@ -198,7 +198,7 @@ function drawCardsRight(idName){ // activated every time selector is changed; dr
                     .style("left", (d3.event.pageX) + "px")		
                     .style("top", (d3.event.pageY) + "px")
             })
-            .on("mouseout", function() {		
+          .on("mouseout", function() {		
               div.transition()		
                   .style("opacity", 0);	
               });
