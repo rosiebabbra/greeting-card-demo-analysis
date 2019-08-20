@@ -22,8 +22,8 @@ stroke-width: 2px;
 .node:not(:hover) .nodetext {
 display: none;
 }
-h1 { font-size: 42px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
-h2 { font-size: 28px; margin: 10px 10px 30px 10px; font-weight: bold;}
+h1 { font-size: 52px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
+h2 { font-size: 36px; margin: 10px 10px 30px 10px; font-weight: bold;}
 h3 { font-size: 22px; margin: 10px 10px 30px 10px; font-weight: normal;}
 header {padding: 20px; position: absolute; top: 0; left: 0;}
 p { font-size: 20px;}
@@ -86,6 +86,16 @@ label {
   display: grid;
   grid-template-columns: repeat(17, 2.5vw);
   grid-template-rows: repeat(17, 2.5vw);
+  margin-right: auto;
+  margin-left: 2vw;
+}
+
+.galleryLeft{
+  display: grid;
+  grid-template-columns: repeat(17, 2.5vw);
+  grid-template-rows: repeat(17, 2.5vw);
+  margin-left: auto;
+  margin-right: 2vw;
 }
 
 .gallery__img {
@@ -114,3 +124,34 @@ label {
   padding:auto;
   display:inline-block;
 } */
+
+
+.breaker{
+  color : #0e005e;
+  border : 1px solid #0e005e;
+  margin-bottom : 5px;
+}
+
+img:hover {
+  position:relative;
+  top:-25px;
+  left:-35px;
+  width:200px;
+  height:auto;
+  display:block;
+  z-index:999;
+}
+
+.thumbnail {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 300px;
+  height: 300px;
+}
+
+img.endPreview{
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+}
