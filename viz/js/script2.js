@@ -49,28 +49,27 @@ function drawCardsLeft(idName){ // activated every time selector is changed; dra
   // absent of the for loop 
   var grid = document.getElementById('galleryDiv');
   grid.setAttribute('style','grid-template-columns: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)')
-  grid.classList.add("gallery__img");
   grid.setAttribute('style','grid-template-rows: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)');
 
-  d3.select(grid).style('margin', 'auto');
+  //d3.select(grid).style('margin', 'auto');
 
   // //Start card population
-  // for (i=1;i<numberOfCards;i++) {
-  //   var img = document.createElement('img');
-  //   img.src = cardImages[idName][i]
-  //   img.classList.add("gallery__img")
-  //   grid.appendChild(img)
-  // }
+  for (i=1;i<numberOfCards;i++) {
+    var img = document.createElement('img');
+    img.src = cardImages[idName][i]
+    img.classList.add("gallery__img")
+    grid.appendChild(img)
+  }
 
 
   // Using d3 to populate the cards instead
-  d3.select(grid).selectAll('img')
-      .data(cardImages[idName])
-      .enter()
-      .append('img')
-      .attr("src", function(d){ return d})
-      .attr('height', '25px')
-      .attr('weight', '25px')
+  // d3.select(grid).selectAll('img')
+  //     .data(cardImages[idName])
+  //     .enter()
+  //     .append('img')
+  //     .attr("src", function(d){ return d})
+  //     .attr('height', '25px')
+  //     .attr('weight', '25px')
 
   
 } 
@@ -83,7 +82,7 @@ function drawCardsRight(idName){ // activated every time selector is changed; dr
   grid.setAttribute('style','grid-template-columns: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)');
   grid.setAttribute('style','grid-template-rows: repeat('+Math.sqrt(numberOfCards)+', 2.5vw)');
 
-  d3.select(grid).style('margin', 'auto');
+  //d3.select(grid).style('margin', 'auto');
 
   for (i=1;i<numberOfCards;i++) {
     var img = document.createElement('img');
@@ -136,7 +135,7 @@ function drawHueViz(){
           .attr("y", height - (i * (height / cardHues[group].length))) 
           .attr("width", width / groups.length - 5)
           .attr("height", height / cardHues[group].length * 1.5)
-          .style("fill", "hsl(" + cardHues[group][i][0] + ",50% ," + cardHues[group][i][1] +"%)")
+          .style("fill", "hsl(" + cardHues[group][i][0] + ",50% , 50%)")
 
       }
 
@@ -149,16 +148,36 @@ function drawHueViz(){
   for (z=0;z<groups.length;z++){
       drawOneGroupBar(groups[z])
 
-      huesvg.append('text')
-          .attr("x", z * (width / groups.length) + (width/groups.length/2))
-          .attr("y", height)
-          .text(groups[z])
-          .style("font-size","12px")
-          .style("fill","black")
-          .attr('text-alignment','center')
-          .style("text-anchor", "middle")
+      // huesvg.append('text')
+      //     //.attr("x", z * (width / groups.length) + (width/groups.length/2))
+      //     .attr("x", width / 2)
+      //     .attr("y", height / 2)
+      //     .text(groups[z])
+      //     .style("font-size","12px")
+      //     .style("fill","black")
+      //     .attr('text-alignment','center')
+      //     .style("text-anchor", "middle")
+      //     .attr("transform", "translate("+width+","+height/8+") rotate(90)")
 
   }
+
+  // Append Labels (THANK YOU https://observablehq.com/@weitinglin/d3-rotating-text-labels)
+  huesvg.selectAll('text.rotation')
+   .data(groups)
+   .enter()
+   .append('text')
+   .text((d)=>d.replace("+"," "))
+   .classed('rotation', true)
+   .attr('fill', 'black')
+   .attr('transform', (d,i)=>{
+       return 'translate( '+ (i* (width / groups.length)  + (width / groups.length / 4)) +' , '+height/2+'),'+ 'rotate(90)';})
+   .attr('x', 0)
+   .attr('y', 0)
+   .attr('text-alignment','center')
+   .style("text-anchor", "middle")
+   .style("font-size","24px")
+   .style('fill',"black")
+   //.style("font-weight","bold")
 
   
 }
@@ -192,5 +211,3 @@ d3.select("#selectorRight").on("change", function() {
   var newGroup = d3.select(this).property("value")
   drawCardsRight(newGroup)
 })
-
-
