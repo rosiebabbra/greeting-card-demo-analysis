@@ -1,6 +1,11 @@
     
 @import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600);
 
+/* Main content */
+.main {
+  margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
 div.tooltip {
     position: absolute;
     text-align: center;
@@ -14,7 +19,9 @@ body {font-family: "Open Sans", Consolas, monaco, monospace;
       font-size: 16px;  
       margin: 0;  
       text-align: center;
-      z-index:1;}
+      z-index:1;
+      background-color: white}
+
 path.link {
 fill: none;
 stroke-width: 2px;
@@ -22,12 +29,21 @@ stroke-width: 2px;
 .node:not(:hover) .nodetext {
 display: none;
 }
-h1 { font-size: 52px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
-h2 { font-size: 36px; margin: 10px 10px 30px 10px; font-weight: bold;}
-h3 { font-size: 22px; margin: 10px 10px 30px 10px; font-weight: normal;}
 header {padding: 20px; position: absolute; top: 0; left: 0;}
 p { font-size: 20px;}
-article { text-align: left; width: 50%; margin: 0 auto;}
+
+h1 { font-size: 48px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
+h2 { font-size: 32px; margin: 10px 10px 30px 10px; font-weight: bold;}
+h3 { font-size: 26px; margin: 10px 10px 30px 10px; font-weight: normal;}
+article { text-align: left; width: 90%; margin: 0 auto;}
+
+@media only screen and (min-width: 768px) {
+  article { text-align: left; width: 50%; margin: 0 auto;}
+  h1 { font-size: 52px; margin: 40px 10px 30px 10px; font-weight: bold; line-height: 45px;}
+  h2 { font-size: 36px; margin: 10px 10px 30px 10px; font-weight: bold;}
+  h3 { font-size: 30px; margin: 10px 10px 30px 10px; font-weight: normal;}
+}
+
 a:link.oliverLink { color: #FF1493; text-decoration: none;}
 a:visited.oliverLink { color: #FF1493; }
 a:hover.oliverLink { color: #FFC0CB; text-decoration: underline;}
@@ -62,9 +78,20 @@ label {
   font-size: 14px;
 }
 
-/* Wrap checkboxes on page width decrease */
+img:hover {
+  position:relative;
+  top:0px;
+  left:0px;
+  width:200px;
+  height:auto;
+  display:block;
+  z-index:800;
+  transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -webkit-transition: width 1s ease-in-out;
+}
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
 
 .checkbox-container {
   padding-left:0;
@@ -79,23 +106,37 @@ label {
   font-size: 14px;
 }
 
-
+img:hover {
+  position:relative;
+  top:0px;
+  left:0px;
+  width:50px;
+  height:100px;
+  display:block;
+  z-index:800;
+  /* transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -webkit-transition: width 1s ease-in-out; */
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(17, 2.5vw);
-  grid-template-rows: repeat(17, 2.5vw);
-  margin-right: auto;
-  margin-left: 2vw;
+
 }
 
 .galleryLeft{
   display: grid;
-  grid-template-columns: repeat(17, 2.5vw);
-  grid-template-rows: repeat(17, 2.5vw);
-  margin-left: auto;
-  margin-right: 2vw;
+  grid-template-columns: repeat(17, 5vw);
+  grid-template-rows: repeat(17, 5vw);
+  margin: auto;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .galleryLeft{
+    display: grid;
+    grid-template-columns: repeat(17, 2.5vw);
+    grid-template-rows: repeat(17, 2.5vw);
+    margin: auto;
+  }
 }
 
 .gallery__img {
@@ -106,52 +147,52 @@ label {
 
 .gridParent {
   display: grid;
-  grid-template-columns: repeat(2, 50vw);
+  margin: auto;
 }
-
-#selectorLeft {
-  position:relative;
-  left:-20%;
-}
-
-#selectorRight {
-  position:relative;
-  right:-20%;
-}
-
-/* select {
-  margin:auto;
-  padding:auto;
-  display:inline-block;
-} */
-
 
 .breaker{
   color : #0e005e;
-  border : 1px solid #0e005e;
+  border : 2px solid #0e005e;
   margin-bottom : 5px;
 }
 
-img:hover {
-  position:relative;
-  top:-25px;
-  left:-35px;
-  width:200px;
-  height:auto;
-  display:block;
-  z-index:999;
-}
-
-.thumbnail {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
+img.endPreview{
   width: 300px;
   height: 300px;
+  border: 1px solid black;
 }
 
-img.endPreview{
-  width: 500px;
-  height: 500px;
-  border: 1px solid black;
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #0e005e;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  z-index: 999;
+  border-style: solid;
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-bottom-color: #0e005e;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background: white;
+  color: #0e005e;
+}
+
+select {
+  font-size: 15px;
 }
